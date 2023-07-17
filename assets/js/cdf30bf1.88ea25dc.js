@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkreprovider_docs=self.webpackChunkreprovider_docs||[]).push([[717],{1581:e=>{e.exports=JSON.parse('{"permalink":"/reprovider-docs/blog/tags/facebook","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
