@@ -35,7 +35,7 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         Reprovider can inject services into reducers and thunks using{" "}
-        <a href="/docs/buildux/overview">Buildux</a>
+        <a href="docs/buildux/overview">Buildux</a>
       </>
     ),
   },
