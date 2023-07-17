@@ -135,59 +135,35 @@ app.tsx
 ```typescript
 import reproviderLogo from "./assets/reprovider_logo.png";
 import "./App.css";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "./core/hooks/hooks";
-import { fetchUsers } from "./core/store/users-store/users.buildux";
-import { User } from "./core/interfaces/user.interface";
+import { useAppSelector, useAppDispatch } from "./core/hooks/hooks";
+import {
+  decrement,
+  increment,
+} from "./core/store/counter-store/counter.buildux";
 
 function App() {
+  const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.users);
-
-  useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-
   return (
     <>
-      <div style={{ display: "flex" }}>
+      <div>
         <img src={reproviderLogo} className="logo" alt="Reprovider logo" />
-        <h1>+</h1>
-        <img
-          src="https://redux-toolkit.js.org/img/redux.svg"
-          className="logo react"
-          alt="React logo"
-        />
+        <a href="https://redux-toolkit.js.org/">
+          <img
+            src="https://redux-toolkit.js.org/img/redux.svg"
+            className="logo Redux Toolkit"
+            alt="Redux toolkit logo"
+          />
+        </a>
       </div>
-      <h1>Read data from Json Placeholder with Buildux example</h1>
+      <h1>Reprovider + Redux Example</h1>
       <div className="card">
-        <a className="">Read the Docs</a>
-      </div>
-      <div className="table-container">
-        {users ? (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user: User) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <span>Fetching users...</span>
-        )}
+        <button onClick={() => dispatch(increment(1))}>+1</button>
+        <h1>Counter value is: {count}</h1>
+        <button onClick={() => dispatch(decrement(1))}>-1</button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
       </div>
     </>
   );
@@ -196,4 +172,4 @@ function App() {
 export default App;
 ```
 
-You can read the complete example reading [here](https://github.com/Lopez15-Hub/reprovider/tree/master/examples/buildux-counter)
+You can read the complete example clicking [here](https://github.com/Lopez15-Hub/reprovider/tree/master/examples/buildux-counter)
