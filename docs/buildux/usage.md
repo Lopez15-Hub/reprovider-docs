@@ -73,7 +73,7 @@ store.ts
 import { configureStore } from "@reduxjs/toolkit";
 import { counterReducer } from "./counter-store/counter.buildux";
 
-exportconststore = configureStore({
+export const store = configureStore({
   reducer: {
     counter: counterReducer,
   },
