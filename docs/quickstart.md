@@ -13,7 +13,7 @@ npm i reprovider
 
 ### Using Reprovider
 
-First create the repository, it can contains the interacions with an A.P.I or Database.
+First create the repository, it can contains the interactions with an A.P.I or Database.
 
 _**greets.repository.ts**_
 
