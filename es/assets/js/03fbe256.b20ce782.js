@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkreprovider_docs=self.webpackChunkreprovider_docs||[]).push([[755],{1686:s=>{s.exports=JSON.parse('{"label":"docusaurus","permalink":"/reprovider-docs/es/blog/tags/docusaurus","allTagsPath":"/reprovider-docs/es/blog/tags","count":4}')}}]);
