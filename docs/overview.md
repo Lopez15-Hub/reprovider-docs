@@ -1,7 +1,6 @@
 ---
 sidebar_position: 0
 ---
-
 # Overview
 
 ![Logo](../static/img/logo.png)
@@ -16,7 +15,7 @@ Reprovider is designed for developers that want get a quickly and organized serv
 
 With reprovider we can create services and consume into a component or outside of it.
 
-Reprovider supports Redux for inject services into reducers and thunks. If you want use reprovider with redux, Read this [section](#buildux)
+Reprovider supports Redux for inject services into reducers and thunks. 
 
 ## How it works
 
