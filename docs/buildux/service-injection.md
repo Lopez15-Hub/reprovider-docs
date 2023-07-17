@@ -23,15 +23,14 @@ export const services: Service[] = [
 ];
 ```
 
-**users.buildux.ts
-**
+**users.buildux.ts**
 
 ```typescript
-import { services } from './registry'
+import { services } from "./registry";
 
 const { context } = new Buildux<UsersState>({
   name: "users",
-  services
+  services,
   initialState: {
     name: "",
     lastName: "",
@@ -39,12 +38,10 @@ const { context } = new Buildux<UsersState>({
   },
 }).createReducers({
   getUsers: (state) => {
-    const service = service.consumer.get(MyService)
+    const service = context.consumer.get(MyService);
     // Do something with your service...
     state.value += 1;
-
   },
-
 });
 ```
 
