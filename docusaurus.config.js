@@ -11,15 +11,17 @@ const config = {
   favicon: "img/reprovider_logo.png",
 
   // Set the production url of your site here
-  url: "https://your-docusaurus-test-site.com",
+  url: "https://lopez15-hub.github.io",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/",
+  baseUrl: "/reprovider-docs",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "Reprovider", // Usually your GitHub org/user name.
-  projectName: "reprovider", // Usually your repo name.
+  organizationName: "lopez15-hub", // Usually your GitHub org/user name.
+  projectName: "reprovider-docs", // Usually your repo name.
+  deploymentBranch: "gh-pages",
+  trailingSlash: false,
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",

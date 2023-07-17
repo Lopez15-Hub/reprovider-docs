@@ -86,9 +86,9 @@ export default App;
 ### Say hello with useProvider
 
 Finally, just import the useProvider, pass the reference of Service that you wan use and desestructure the provider.
-
+:::tip
 Optional: You can rename the provider as you want. This is recommended for understand the code, better.
-
+:::
 _**say-hello.component.tsx**_
 
 ```typescript
