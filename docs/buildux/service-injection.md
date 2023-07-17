@@ -5,7 +5,7 @@ If you need consume services into a reducer you can follow the next steps:
 Create the registry file for store the services for slice
 
 :::tip
-It is recommended to create a registry for the slice and only insert the services that are part of it. This helps build a better code structure.
+It is recommended to create a registry for the slice and only include the services that are part of it. This helps in building a better code structure.
 :::
 Create the registry file
 

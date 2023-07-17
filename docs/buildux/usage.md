@@ -1,14 +1,13 @@
 ---
 sidebar_position: 1
 ---
+
 # Usage
 
 Install the dependencies
 
 ```powershell
-
 npm install reprovider @reduxjs/toolkit react-redux
-
 ```
 
 First create the state interface
@@ -16,15 +15,9 @@ First create the state interface
 counter-state.interface.ts
 
 ```typescript
-
-exportinterfaceCounterState {
-
-value: number;
-
-
+export interface CounterState {
+  value: number;
 }
-
-
 ```
 
 Now, create the buildux file, import the state, and pass the state type to the instance. This will return a context that you will use later in reducers.
@@ -32,21 +25,13 @@ Now, create the buildux file, import the state, and pass the state type to the i
 counter.buildux.ts
 
 ```typescript
-
-import { Buildux } from"reprovider";
-
-import { CounterState } from"../../interfaces/counter-state.interface";
-
+import { Buildux } from "reprovider";
+import { CounterState } from "../../interfaces/counter-state.interface";
 
 const { context } = newBuildux<CounterState>({
-
-name:"counter",
-
-initialState: { value:0 },
-
-})
-
-
+  name: "counter",
+  initialState: { value: 0 },
+});
 ```
 
 After created the Buildux instance, we need create the reducers. For that, use the createReducers method:
@@ -54,35 +39,20 @@ After created the Buildux instance, we need create the reducers. For that, use t
 counter.buildux.ts
 
 ```typescript
-
 const { context } = newBuildux<CounterState>({
-
-name:"counter",
-
-initialState: { value:0 },
-
+  name: "counter",
+  initialState: { value: 0 },
 }).createReducers({
-
-reducers: {
-
-increment: (state) => {
-
-state.value+=1;
-
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
     },
 
-decrement: (state) => {
-
-state.value-=1;
-
+    decrement: (state) => {
+      state.value -= 1;
     },
-
   },
-
 });
-
-
-
 ```
 
 then exports the actions created from reducers and the reducer from context:
@@ -90,11 +60,9 @@ then exports the actions created from reducers and the reducer from context:
 counter.buildux.ts
 
 ```typescript
+export const { increment, decrement } = context.actions;
 
-exportconst { increment, decrement } = context.actions;
-
-exportconstcounterReducer = context.reducer;
-
+export const counterReducer = context.reducer;
 ```
 
 Now create the store and import the exported reducer from counter.buildux.ts
@@ -102,62 +70,37 @@ Now create the store and import the exported reducer from counter.buildux.ts
 store.ts
 
 ```typescript
-
-import { configureStore } from"@reduxjs/toolkit";
-
-import { counterReducer } from"./counter-store/counter.buildux";
-
+import { configureStore } from "@reduxjs/toolkit";
+import { counterReducer } from "./counter-store/counter.buildux";
 
 exportconststore = configureStore({
-
-reducer: {
-
-counter:counterReducer,
-
+  reducer: {
+    counter: counterReducer,
   },
-
 });
 
+export type RootState = ReturnType<typeof store.getState>;
 
-exporttypeRootState = ReturnType<typeofstore.getState>;
-
-exporttypeAppDispatch = typeofstore.dispatch;
-
+export type AppDispatch = typeof store.dispatch;
 ```
 
 In your index.tsx, import the store and the Provider Component and pass the store to tag.
 
 ```typescript
-
-importReactfrom"react";
-
-importReactDOMfrom"react-dom/client";
-
-importAppfrom"./App";
-
-import"./index.css";
-
-
-import { store } from"./core/store/store";
-
-import { Provider } from"react-redux";
-
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { store } from "./core/store/store";
+import { Provider } from "react-redux";
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-
   <React.StrictMode>
-
-    <Providerstore={store}>
-
-      <App/>
-
+    <Provider store={store}>
+      <App />
     </Provider>
-
   </React.StrictMode>
-
 );
-
-
 ```
 
 For consume the reducers and dispatch actions we need create these hooks:
@@ -165,27 +108,17 @@ For consume the reducers and dispatch actions we need create these hooks:
 hooks.ts
 
 ```typescript
-
-import { useDispatch, useSelector } from"react-redux";
-
-importtype { TypedUseSelectorHook } from"react-redux";
-
-import { AppDispatch, RootState } from"../store/store";
-
+import { useDispatch, useSelector } from "react-redux";
+import type { TypedUseSelectorHook } from "react-redux";
+import { AppDispatch, RootState } from "../store/store";
 
 //Hooks for read and emit states with redux.
 
-
 //Calls an action
-
-exportconstuseAppDispatch: () =>AppDispatch = useDispatch;
-
+export const useAppDispatch: () => AppDispatch = useDispatch;
 
 //Read the state
-
-exportconstuseAppSelector: TypedUseSelectorHook<RootState> = useSelector;
-
-
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 ```
 
 Now, we are ready to use the states and actions. For that, import the hooks in the component and use the hooks as follows:
@@ -193,90 +126,74 @@ Now, we are ready to use the states and actions. For that, import the hooks in t
 app.tsx
 
 ```typescript
-
-constcount = useAppSelector((state) =>state.counter.value);
-
-constdispatch = useAppDispatch();
-
+const count = useAppSelector((state) => state.counter.value);
+const dispatch = useAppDispatch();
 ```
 
 app.tsx
 
 ```typescript
+import reproviderLogo from "./assets/reprovider_logo.png";
+import "./App.css";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./core/hooks/hooks";
+import { fetchUsers } from "./core/store/users-store/users.buildux";
+import { User } from "./core/interfaces/user.interface";
 
-importreproviderLogofrom"./assets/reprovider_logo.png";
+function App() {
+  const dispatch = useAppDispatch();
+  const { users } = useAppSelector((state) => state.users);
 
-import"./App.css";
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
 
-import { useAppSelector, useAppDispatch } from"./core/hooks/hooks";
-
-import {
-
-decrement,
-
-increment,
-
-} from"./core/store/counter-store/counter.buildux";
-
-
-functionApp() {
-
-constcount = useAppSelector((state) =>state.counter.value);
-
-constdispatch = useAppDispatch();
-
-return (
-
+  return (
     <>
-
-      <div>
-
-        <imgsrc={reproviderLogo} className="logo"alt="Reprovider logo"/>
-
-        <ahref="https://redux-toolkit.js.org/">
-
-          <img
-
-src="https://redux-toolkit.js.org/img/redux.svg"
-
-className="logo Redux Toolkit"
-
-alt="Redux toolkit logo"
-
-/>
-
-        </a>
-
+      <div style={{ display: "flex" }}>
+        <img src={reproviderLogo} className="logo" alt="Reprovider logo" />
+        <h1>+</h1>
+        <img
+          src="https://redux-toolkit.js.org/img/redux.svg"
+          className="logo react"
+          alt="React logo"
+        />
       </div>
-
-      <h1>Reprovider+ReduxExample</h1>
-
-      <divclassName="card">
-
-        <buttononClick={() => dispatch(increment(1))}>+1</button>
-
-        <h1>Countervalueis: {count}</h1>
-
-        <buttononClick={() => dispatch(decrement(1))}>-1</button>
-
-        <p>
-
-Edit <code>src/App.tsx</code> andsavetotestHMR
-
-        </p>
-
+      <h1>Read data from Json Placeholder with Buildux example</h1>
+      <div className="card">
+        <a className="">Read the Docs</a>
       </div>
-
+      <div className="table-container">
+        {users ? (
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((user: User) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.username}</td>
+                  <td>{user.email}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <span>Fetching users...</span>
+        )}
+      </div>
     </>
-
   );
-
 }
 
-
-exportdefaultApp;
-
-
+export default App;
 ```
 
 You can read the complete example reading [here](https://github.com/Lopez15-Hub/reprovider/tree/master/examples/buildux-counter)
