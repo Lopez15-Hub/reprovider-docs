@@ -28,7 +28,7 @@ counter.buildux.ts
 import { Buildux } from "reprovider";
 import { CounterState } from "../../interfaces/counter-state.interface";
 
-const { context } = newBuildux<CounterState>({
+const { context } = new Buildux<CounterState>({
   name: "counter",
   initialState: { value: 0 },
 });
