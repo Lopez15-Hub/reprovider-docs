@@ -10,12 +10,15 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: "Easy to Use",
+    title: "Easy to use",
     Svg: require("@site/static/img/easy.svg").default,
     description: (
       <>
-        Reprovider is a centralized provider that allows you inject services
-        quickly into a react component using a consumer.
+        Just create your service, declare into a Registry and consume with the{" "}
+        <a href="/docs/latest/quickstart#say-hello-with-useprovider">
+          Reprovider Hook
+        </a>
+        .
       </>
     ),
   },
@@ -34,8 +37,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require("@site/static/img/buildux.svg").default,
     description: (
       <>
-        Reprovider can inject services into reducers and thunks using{" "}
-        <a href="docs/buildux/overview">Buildux</a>
+        You can use Redux and Inject services in thunks and reducers using
+        <a href="docs/latest/buildux/overview"> Buildux </a>
       </>
     ),
   },

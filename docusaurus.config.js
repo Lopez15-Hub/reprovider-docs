@@ -11,10 +11,10 @@ const config = {
   favicon: "img/reprovider_logo.png",
 
   // Set the production url of your site here
-  url: "https://lopez15-hub.github.io",
+  url: "https://docs.reprovider.com.ar/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/reprovider-docs",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -95,6 +95,11 @@ const config = {
             label: "GitHub",
             position: "right",
           },
+          {
+            href: "https://www.npmjs.com/package/reprovider",
+            label: "Npm",
+            position: "right",
+          },
         ],
       },
 
@@ -106,19 +111,19 @@ const config = {
             items: [
               {
                 label: "Overview",
-                to: "/docs/overview",
+                to: "/docs/latest/overview",
               },
               {
                 label: "Quickstart",
-                to: "/docs/quickstart",
+                to: "/docs/latest/quickstart",
               },
               {
                 label: "Buildux",
-                to: "/docs/buildux/overview",
+                to: "/docs/latest/buildux/overview",
               },
               {
                 label: "Examples",
-                to: "/docs/examples",
+                to: "/docs/latest/examples",
               },
             ],
           },
@@ -128,6 +133,10 @@ const config = {
               {
                 label: "GitHub",
                 href: "https://github.com/lopez15-hub/reprovider",
+              },
+              {
+                label: "Npm",
+                href: "https://www.npmjs.com/package/reprovider",
               },
             ],
           },
