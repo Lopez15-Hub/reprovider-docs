@@ -38,31 +38,29 @@ const { context } = new Buildux<UsersState>({
   },
 }).createReducers({
   getUsers: (state) => {
-     //Get the service from context
     const service = context.consumer.get(MyService);
     // Do something with your service...
+    state.value += 1;
   },
 });
 ```
 
 ### Consuming services into a thunk
 
-
 **users.thunks-registry.ts**
 
 ```typescript
 //Register a new thunk.
-export const userThunksRegistry = <T>(context: BuilduxContext<T>) => ({
-  fetchUsers: builduxThunk<User[]>({
+thunksRegistry(context, (context) => [
+  builduxThunk<User[], void>({
     description: "Get user from API",
     reference: "/users",
     action: async () => {
-      //Get the service from context
+      // Read the service from context
       const usersService = context.consumer.get(UsersService);
-      //Use the service for get users
       const users = await usersService.getUsers();
       return users;
     },
   }),
-});
+]);
 ```

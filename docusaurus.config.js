@@ -40,6 +40,13 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          lastVersion: "current",
+          versions: {
+            current: {
+              label: "Latest - 1.1.0",
+              path: "latest",
+            },
+          },
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -71,12 +78,12 @@ const config = {
           alt: "Reprovider Logo",
           src: "img/reprovider_logo.png",
         },
+
         items: [
           {
-            type: "docSidebar",
-            sidebarId: "tutorialSidebar",
-            position: "left",
-            label: "Docs",
+            type: "docsVersionDropdown",
+            position: "right",
+            dropdownActiveClassDisabled: true,
           },
           {
             href: "https://github.com/Lopez15-Hub/reprovider/tree/master/examples",
@@ -90,6 +97,7 @@ const config = {
           },
         ],
       },
+
       footer: {
         style: "dark",
         links: [

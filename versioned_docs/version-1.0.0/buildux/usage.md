@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
 ---
+
 # Usage
 
 Install the dependencies
@@ -21,19 +22,6 @@ export interface CounterState {
 
 Now, create the buildux file, import the state, and pass the state type to the instance. This will return a context that you will use later in reducers.
 
-Buildux Recieve the following parameters:
-
-**Angular Types** 
-
-* **State** - The state of current Buildux.
-* **ThunkTypes** - Type used when you are using Thunks.
-
-**Params** 
-
-* **name** - The Buildux name
-* **InitialState** - The first state declared into Buildux
-* **services** - Used for inject services into reducers and thunks.
-
 counter.buildux.ts
 
 ```typescript
@@ -51,7 +39,7 @@ After created the Buildux instance, we need create the reducers. For that, use t
 counter.buildux.ts
 
 ```typescript
-const { context } = new Buildux<CounterState>({
+const { context } = newBuildux<CounterState>({
   name: "counter",
   initialState: { value: 0 },
 }).createReducers({
@@ -67,72 +55,7 @@ const { context } = new Buildux<CounterState>({
 });
 ```
 
-## Standalone Reducers
-
-Also we can declare the reducers into a separated file for better organization  like this:
-
-**counter-reducers.registry.ts**
-
-```typescript
-export const counterReducers = {
-  reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-
-    decrement: (state) => {
-      state.value -= 1;
-    },
-  },
-};
-
-```
-
-and import the counterReducers into Buildux:
-
-```typescript
-//...Other imports
-
-import { counterReducers } from "./counter-reducers.registry";
-
-const { context,createReducers } = new Buildux<CounterState>({
-  name: "counter",
-  initialState: { value: 0 },
-});
-
-//Register reducers:
-createReducers(counterReducers);
-```
-
-### Working with extraReducers
-
-:::caution
-
-When we are working with standalone reducers you need define the type `ActionReducerMapBuilder<UsersState>` for pass the State into builder
-
-:::
-
-**Example:**
-
-```typescript
-export const usersReducers = {
-  reducers: {},
-  extraReducers(builder: ActionReducerMapBuilder<UsersState>) {
-    builder.addCase(
-      fetchUsers.fulfilled,
-      (state, { payload }: PayloadAction<User[]>) => {
-        if (payload) state.users = payload;
-        console.log(state.users);
-      }
-    );
-  },
-};
-```
-
-
-
-
-Finally exports the actions created from reducers and the reducer from context:
+then exports the actions created from reducers and the reducer from context:
 
 counter.buildux.ts
 
@@ -141,8 +64,6 @@ export const { increment, decrement } = context.actions;
 
 export const counterReducer = context.reducer;
 ```
-
-
 
 Now create the store and import the exported reducer from counter.buildux.ts
 
@@ -163,8 +84,6 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 ```
 
-## Front End implementation
-
 In your index.tsx, import the store and the Provider Component and pass the store to tag.
 
 ```typescript
@@ -184,10 +103,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 );
 ```
 
-## Custom hooks
-
 For consume the reducers and dispatch actions we need create these hooks:
-
 
 hooks.ts
 

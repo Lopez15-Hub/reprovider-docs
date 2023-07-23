@@ -1,4 +1,4 @@
-# Read data from api with Buildux
+# Basic counter with Redux using Buildux
 
 Learn how to fetch data from an API like Json Placeholder using Buildux and Buildux Thunks.
 
